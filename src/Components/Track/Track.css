@@ -35,3 +35,14 @@
     font-weight: 300;
     color: rgba(256, 256, 256, 0.8);
   }
+
+  .Track-play {
+    background-color: #6c41ec;
+    text-align: center;
+    transition: background-color .25s;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 54px;
+    border-width: 0px;
+    padding: .5rem .7rem;
+  }

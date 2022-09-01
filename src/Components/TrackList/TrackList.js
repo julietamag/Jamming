@@ -16,6 +16,7 @@ class TrackList extends React.Component {
                         isRemoval = {this.props.isRemoval}
                         onPlay={this.props.onPlay}
                         isPlaying={this.props.isPlaying}
+                        onPause={this.props.onPause}
                         />
                     })
                 }

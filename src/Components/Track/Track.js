@@ -4,10 +4,14 @@ import './Track.css'
 class Track extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            isPlay: false
+        }
 
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
         this.playTrack = this.playTrack.bind(this);
+        this.pauseTrack = this.pauseTrack.bind(this);
     }
 
     renderAction() {
@@ -27,15 +31,21 @@ class Track extends React.Component {
     }
 
     renderPlay(){
-        if(this.props.isPlaying){
+        if(!this.state.isPlay){
             return <button className="Track-play" onClick={this.playTrack}> Play </button>
-        } else {
+        } else{
             return <button className="Track-play" onClick={this.pauseTrack}> Pause </button>
         }
     }
 
     playTrack(){
         this.props.onPlay(this.props.track);
+        this.setState({ isPlay: true })
+    }
+
+    pauseTrack(){
+        this.props.onPause(this.props.track);
+        this.setState({ isPlay: false })
     }
 
     render() {

@@ -14,7 +14,8 @@ class App extends React.Component {
     this.state = {
       searchResults: [],
       playlistName: 'Best Playlist',
-      playlistTracks: []
+      playlistTracks: [],
+      playingTrack: new Audio(),
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -22,6 +23,7 @@ class App extends React.Component {
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
     this.playTrack = this.playTrack.bind(this);
+    this.pauseTrack = this.pauseTrack.bind(this)
   };
 
   // Method to add a Track from the results to the playlist 
@@ -71,15 +73,22 @@ class App extends React.Component {
   playTrack(track) {
     let preview = this.state.searchResults.filter(trackToPlay => trackToPlay.preview == track.preview)
     preview = preview[0]['preview'];
+
     if (preview === null) {
-      return;
+      return alert('Sorry, preview is not available for this track :(');
     }
-    const newAudio = new Audio();
-    newAudio.src = preview;
-    newAudio.play();
+
+    this.state.playingTrack.src = preview;
+    this.state.playingTrack.play();
+    
+  };
+
+   
+  pauseTrack(){
+    this.state.playingTrack.pause();
+    this.setState({ playingTrack: new Audio()} );
   }
 
-  
 
   render() {
     return (
@@ -90,7 +99,7 @@ class App extends React.Component {
             onSearch={this.search}
           />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onPlay={this.playTrack} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onPlay={this.playTrack} onPause={this.pauseTrack} isPlaying={this.state.isPlaying} />
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
