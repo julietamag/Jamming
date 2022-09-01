@@ -7,6 +7,7 @@ class Track extends React.Component {
 
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
+        this.playTrack = this.playTrack.bind(this);
     }
 
     renderAction() {
@@ -25,6 +26,18 @@ class Track extends React.Component {
         this.props.onRemove(this.props.track)
     }
 
+    renderPlay(){
+        if(this.props.isPlaying){
+            return <button className="Track-play" onClick={this.playTrack}> Play </button>
+        } else {
+            return <button className="Track-play" onClick={this.pauseTrack}> Pause </button>
+        }
+    }
+
+    playTrack(){
+        this.props.onPlay(this.props.track);
+    }
+
     render() {
         return (
             <div className="Track">
@@ -32,6 +45,7 @@ class Track extends React.Component {
                     <h3>{this.props.track.name}</h3>
                     <p>{this.props.track.artist} | {this.props.track.album} </p>
                 </div>
+                {this.renderPlay()}
                 {this.renderAction()}
             </div>
         )

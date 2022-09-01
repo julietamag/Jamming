@@ -2,7 +2,7 @@ import React from 'react';
 
 let accessToken;
 const client_id = 'bfc021616eff41418f82572ab678ec1d';
-const redirect_uri = "http://miniature-way.surge.sh";
+const redirect_uri = "http://localhost:3000/";
 
 const Spotify = {
     getAccessToken() {
@@ -43,7 +43,8 @@ const Spotify = {
                 name: track.name,
                 artist: track.artists[0].name,
                 album: track.album.name,
-                uri: track.uri
+                uri: track.uri,
+                preview: track.preview_url
             }));
         });
     },

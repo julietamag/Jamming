@@ -21,6 +21,7 @@ class App extends React.Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.playTrack = this.playTrack.bind(this);
   };
 
   // Method to add a Track from the results to the playlist 
@@ -51,7 +52,7 @@ class App extends React.Component {
   // add the playlist to Spotify
   savePlaylist() {
     const trackUris = this.state.playlistTracks.map(track => track.uri);
-    Spotify.savePlaylist(this.state.playlistName, trackUris).then(()=>{
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
       this.setState({
         playlistName: 'New Playlist',
         playlistTracks: []
@@ -66,6 +67,20 @@ class App extends React.Component {
     })
   }
 
+  // method to reproduce preview of track
+  playTrack(track) {
+    let preview = this.state.searchResults.filter(trackToPlay => trackToPlay.preview == track.preview)
+    preview = preview[0]['preview'];
+    if (preview === null) {
+      return;
+    }
+    const newAudio = new Audio();
+    newAudio.src = preview;
+    newAudio.play();
+  }
+
+  
+
   render() {
     return (
       <div>
@@ -75,7 +90,7 @@ class App extends React.Component {
             onSearch={this.search}
           />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} onPlay={this.playTrack} />
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
