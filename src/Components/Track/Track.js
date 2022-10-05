@@ -40,12 +40,16 @@ class Track extends React.Component {
 
     playTrack(){
         this.props.onPlay(this.props.track);
-        this.setState({ isPlay: true })
+        this.setState(state => ({
+            isPlay: !state.isPlay
+        }))
     }
 
     pauseTrack(){
         this.props.onPause(this.props.track);
-        this.setState({ isPlay: false })
+        this.setState(state => ({
+            isPlay: !state.isPlay
+        }))
     }
 
     render() {

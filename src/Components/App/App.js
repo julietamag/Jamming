@@ -80,7 +80,6 @@ class App extends React.Component {
 
     this.state.playingTrack.src = preview;
     this.state.playingTrack.play();
-    
   };
 
    
